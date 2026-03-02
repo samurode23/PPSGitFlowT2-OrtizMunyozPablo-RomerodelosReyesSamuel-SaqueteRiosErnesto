@@ -2,6 +2,13 @@ const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
 
+function updateAddButton() {
+  addBtn.disabled = taskInput.value.trim() === "";
+}
+
+updateAddButton();
+taskInput.addEventListener("input", updateAddButton);
+
 function addTask() {
   const text = taskInput.value.trim();
   if (text === "") return;
@@ -13,10 +20,25 @@ function addTask() {
   span.className = "text";
   span.textContent = text;
 
+  span.addEventListener("click", () => {
+    li.classList.toggle("done");
+  });
+
   li.appendChild(span);
   taskList.appendChild(li);
+  const del = document.createElement("button");
+del.className = "deleteBtn";
+del.textContent = "Eliminar";
 
+// BUG INTENCIONAL: borra siempre la primera tarea
+del.addEventListener("click", () => {
+  const first = document.querySelector("#taskList .item");
+  if (first) first.remove();
+});
+
+li.appendChild(del);
   taskInput.value = "";
+  updateAddButton();
 }
 
 addBtn.addEventListener("click", addTask);

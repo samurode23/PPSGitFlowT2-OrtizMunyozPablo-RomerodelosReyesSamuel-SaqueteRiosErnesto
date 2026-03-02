@@ -19,13 +19,24 @@ function addTask() {
   const span = document.createElement("span");
   span.className = "text";
   span.textContent = text;
+
   span.addEventListener("click", () => {
     li.classList.toggle("done");
   });
 
   li.appendChild(span);
   taskList.appendChild(li);
+  const del = document.createElement("button");
+del.className = "deleteBtn";
+del.textContent = "Eliminar";
 
+// BUG INTENCIONAL: borra siempre la primera tarea
+del.addEventListener("click", () => {
+  const first = document.querySelector("#taskList .item");
+  if (first) first.remove();
+});
+
+li.appendChild(del);
   taskInput.value = "";
   updateAddButton();
 }

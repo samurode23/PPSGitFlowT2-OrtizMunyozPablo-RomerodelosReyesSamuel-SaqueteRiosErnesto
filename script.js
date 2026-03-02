@@ -30,10 +30,9 @@ function addTask() {
 del.className = "deleteBtn";
 del.textContent = "Eliminar";
 
-// BUG INTENCIONAL: borra siempre la primera tarea
+
 del.addEventListener("click", () => {
-  const first = document.querySelector("#taskList .item");
-  if (first) first.remove();
+  li.remove()
 });
 
 li.appendChild(del);
